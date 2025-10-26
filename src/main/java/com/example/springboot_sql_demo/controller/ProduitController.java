@@ -26,4 +26,17 @@ public class ProduitController {
     public getTop3() {
         return produitRepository;
     }
+
+    @GetMapping("/produits/bouteille-canettes")
+    public getBottlesOrCans() {return produitRepository;}
+
+    @GetMapping("/produits/tofu-choco")
+    public getTofuOrChocoUnder100(){
+        return produitRepository;
+    }
+
+    @GetMapping("/produits/fournisseur8")
+    public ProduitRepository getProductsFromSupplier8() {
+        return produitRepository;
+    }
 }

@@ -20,4 +20,14 @@ public ClientRepository {
     public List<Map<String, Object>> findClientsWithRestaurantInName () {
         return jdbcTemplate.queryForList("SELECT * FROM Client WHERE Societe LIKE '%restaurant%");
     }
+
+    // 5️⃣ Lister les différents pays des clients
+    public List<Map<String, Object>> findDistinctCountries () {
+        return ("SELECT DISTINCT Pays FROM Client;");
+    }
+
+    // 6️⃣ Lister les pays et villes triés alphabétiquement
+    public List<Map<String, Object>> findDistinctCountriesAndCities () {
+        return ("SELECT DISTINCT FROM Client ORDER BY Pays ASC, Ville ASC");
+    }
 }

@@ -7,23 +7,33 @@ public class ClientController {
         this.clientRepository = clientRepository;
     }
 
-    @GetMapping("/clients")
-    public ClientRepository getAllClients() {
+    @GetMapping("/clients/paris")
+    public ClientRepository getAllFrenchClientsInParis() {
         return clientRepository;
     }
 
-    @GetMapping("/clients/first10")
-    public getFirst10() {
+    @GetMapping("/clients/europe")
+    public getSwissGermanBelgianClients() {
         return clientRepository;
     }
 
-    @GetMapping("/clients/sorted")
-    public getSortedByPrix() {
+    @GetMapping("/clients/sansfax")
+    public getClientsWithoutFax() {
         return clientRepository;
     }
 
-    @GetMapping("/clients/top3")
-    public getTop3() {
+    @GetMapping("/clients/restaurant")
+    public getClientsWithRestaurantTop3() {
+        return clientRepository;
+    }
+
+    @GetMapping("/clients/pays")
+    public getDistinctCountries() {
+        return clientRepository;
+    }
+
+    @GetMapping("/clients/paysvilles")
+    public getDistinctCountriesAndCities() {
         return clientRepository;
     }
 }
