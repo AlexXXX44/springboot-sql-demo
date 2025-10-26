@@ -15,15 +15,15 @@ public class ProduitRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public Object findAal(){
+    public List<Map<String, Object>> findAal(){
         return jdbcTemplate.queryForList("SELECT * FROM Produit LIMIT 10");
     }
 
-    public Object findAllSortedByPrix(){
+    public List<Map<String, Object>> findAllSortedByPrix(){
         return jdbcTemplate.queryForList("SELECT * FROM Produit ORDER BY PrixUnit");
     }
 
-    public Object findTop3MostExpensive(){
+    public List<Map<String, Object>> findTop3MostExpensive(){
         return jdbcTemplate.queryForList("SELECT * FROM Produit ORDER BY PrixUnit");
     }
 
@@ -43,5 +43,11 @@ public class ProduitRepository {
     // 6️⃣ Produits contenant 'tofu' ou 'choco' et prix < 100
     public List<Map<String, Object>> findTofuOrChocoUnder100() {
         return jdbcTemplate.queryForList("SELECT * FROM Produit WHERE (NomProduit LIKE '%tofu' OR NomProduit LIKE '%choco%') AND PrixUnit<200");
+    }
+
+    public List<Map<String, Object>> findDisponibiliteProduits() {
+        return jdbcTemplate.queryForList("SELECT RefProd, NomProd, Indisponible," +
+                                            "CASE WHEN Indisponible=1 THEN 'Produit non disponible'" +
+                                            "ELSE 'Produit disponible' END AS Disponibilite FROM Produit");
     }
 }

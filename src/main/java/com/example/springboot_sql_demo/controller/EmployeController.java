@@ -3,6 +3,9 @@ import com.example.springboot_sql_demo.repository.EmployeRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.Map;
+
 @RestController
 public class EmployeController {
 
@@ -13,7 +16,12 @@ public class EmployeController {
     }
 
     @GetMapping("/employes/commandes-france")
-    public EmployeRepository getEmployeRepository() {
-        return employeRepository;
+    public List<Map<String, Object>> findEmployeesWithFrenchOrders() {
+        return employeRepository.findEmployeesWithFrenchOrders();
+    }
+    
+    @GetMapping("/employes/embauches-infos")
+    public List<Map<String, Object>> findInfosEmbauche() {
+        return  employeRepository.findInfosEmbauche();
     }
 }

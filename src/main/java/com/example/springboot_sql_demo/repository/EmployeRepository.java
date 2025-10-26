@@ -19,4 +19,14 @@ public class EmployeRepository {
         String sql = "SELECT DISTINCT NoEmp FROM Commande WHERE PaysLiv = 'France' AND VilleLiv IN ('Lille', 'Lyon', 'Nantes')";
         return jdbcTemplate.queryForList(sql);
     }
+
+    public List<Map<String, Object>> findInfosEmbauche() {
+        return jdbcTemplate.queryForList("SELECT NumEmp, NomEmp, PrenomEmp, EXTRACT(YEAR FROM DateNaiss) AS AnneeNaissance," +
+                            "EXTRACT(YEAR FROM DateEmbauche) AS AnneeEmbauche FROM Employe");
+    }
+
+    public List<Map<String, Object>> findInfosEmbauche1() {
+        return jdbcTemplate.queryForList("SELECT EXTRACT(YEAR FROM DateEmbauche) - EXTRACT(YEAR FROM DateNaiss AS AgeEmbauche," +
+                        "EXTRACT(YEAR FROM CURRENT_DATE) - EXTRACT(YEAR FROM DateEmbauche) AS AncienneAnnée FROM Employe");
+    }
 }

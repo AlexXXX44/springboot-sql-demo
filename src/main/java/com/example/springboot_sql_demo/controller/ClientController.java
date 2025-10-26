@@ -4,6 +4,9 @@ import com.example.springboot_sql_demo.repository.ClientRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.Map;
+
 @RestController
 public class ClientController {
 
@@ -14,32 +17,32 @@ public class ClientController {
     }
 
     @GetMapping("/clients/paris")
-    public ClientRepository getAllFrenchClientsInParis() {
-        return clientRepository;
+    public List<Map<String, Object>> getAllFrenchClientsInParis() {
+        return clientRepository.findFrenchClientsInParis();
     }
 
     @GetMapping("/clients/europe")
-    public Object getSwissGermanBelgianClients() {
-        return clientRepository;
+    public List<Map<String, Object>> getSwissGermanBelgianClients() {
+        return clientRepository.findSwissGermanBelgianClients();
     }
 
     @GetMapping("/clients/sansfax")
-    public Object getClientsWithoutFax() {
-        return clientRepository;
+    public List<Map<String, Object>> getClientsWithoutFax() {
+        return clientRepository.findClientsWithoutFax();
     }
 
     @GetMapping("/clients/restaurant")
-    public Object getClientsWithRestaurantTop3() {
-        return clientRepository;
+    public List<Map<String, Object>> getClientsWithRestaurantTop3() {
+        return clientRepository.findClientsWithRestaurantInName();
     }
 
     @GetMapping("/clients/pays")
-    public Object getDistinctCountries() {
-        return clientRepository;
+    public List<Map<String, Object>> getDistinctCountries() {
+        return clientRepository.findDistinctCountries();
     }
 
     @GetMapping("/clients/paysvilles")
-    public Object getDistinctCountriesAndCities() {
-        return clientRepository;
+    public List<Map<String, Object>> getDistinctCountriesAndCities() {
+        return clientRepository.findDistinctCountriesAndCities();
     }
 }

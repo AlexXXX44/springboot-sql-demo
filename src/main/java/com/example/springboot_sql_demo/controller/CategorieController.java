@@ -15,6 +15,6 @@ public class CategorieController {
 
     @GetMapping("/categories/descriptions")
     public Object getCategorieDescriptions() {
-        return categorieRepository;
+        return categorieRepository.findAllDescriptions();
     }
 }
