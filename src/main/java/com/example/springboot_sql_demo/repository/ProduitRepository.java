@@ -1,3 +1,11 @@
+package com.example.springboot_sql_demo.repository;
+
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Map;
+
 @Repository
 public class ProduitRepository {
 
@@ -7,15 +15,15 @@ public class ProduitRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public findAal(){
+    public Object findAal(){
         return jdbcTemplate.queryForList("SELECT * FROM Produit LIMIT 10");
     }
 
-    public findAllSortedByPrix(){
+    public Object findAllSortedByPrix(){
         return jdbcTemplate.queryForList("SELECT * FROM Produit ORDER BY PrixUnit");
     }
 
-    public findTop3MostExpensive(){
+    public Object findTop3MostExpensive(){
         return jdbcTemplate.queryForList("SELECT * FROM Produit ORDER BY PrixUnit");
     }
 
@@ -34,6 +42,6 @@ public class ProduitRepository {
 
     // 6️⃣ Produits contenant 'tofu' ou 'choco' et prix < 100
     public List<Map<String, Object>> findTofuOrChocoUnder100() {
-        return jdbcTemplate.queryForList("SELECT * FROM Produit WHERE (NomProduit LIKE '%tofu' OR NomProduit LIKE '%choco%') AND PrixUnit<200";
+        return jdbcTemplate.queryForList("SELECT * FROM Produit WHERE (NomProduit LIKE '%tofu' OR NomProduit LIKE '%choco%') AND PrixUnit<200");
     }
 }

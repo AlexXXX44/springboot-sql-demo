@@ -1,3 +1,9 @@
+package com.example.springboot_sql_demo.controller;
+
+import com.example.springboot_sql_demo.repository.ClientRepository;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 @RestController
 public class ClientController {
 
@@ -13,27 +19,27 @@ public class ClientController {
     }
 
     @GetMapping("/clients/europe")
-    public getSwissGermanBelgianClients() {
+    public Object getSwissGermanBelgianClients() {
         return clientRepository;
     }
 
     @GetMapping("/clients/sansfax")
-    public getClientsWithoutFax() {
+    public Object getClientsWithoutFax() {
         return clientRepository;
     }
 
     @GetMapping("/clients/restaurant")
-    public getClientsWithRestaurantTop3() {
+    public Object getClientsWithRestaurantTop3() {
         return clientRepository;
     }
 
     @GetMapping("/clients/pays")
-    public getDistinctCountries() {
+    public Object getDistinctCountries() {
         return clientRepository;
     }
 
     @GetMapping("/clients/paysvilles")
-    public getDistinctCountriesAndCities() {
+    public Object getDistinctCountriesAndCities() {
         return clientRepository;
     }
 }

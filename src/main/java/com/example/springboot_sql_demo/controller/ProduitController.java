@@ -1,3 +1,9 @@
+package com.example.springboot_sql_demo.controller;
+
+import com.example.springboot_sql_demo.repository.ProduitRepository;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 @RestController
 public class ProduitController {
 
@@ -8,30 +14,30 @@ public class ProduitController {
     }
 
     @GetMapping("/produits")
-    public ProduitRepository getAllProduits() {
+    public Object getAllProduits() {
         return produitRepository;
     }
 
     @GetMapping("/produits/first10")
-    public getFirst10() {
+    public Object getFirst10() {
         return produitRepository;
     }
 
     @GetMapping("/produits/sorted")
-    public getSortedByPrix() {
+    public Object getSortedByPrix() {
         return produitRepository;
     }
 
     @GetMapping("/produits/top3")
-    public getTop3() {
+    public Object getTop3() {
         return produitRepository;
     }
 
     @GetMapping("/produits/bouteille-canettes")
-    public getBottlesOrCans() {return produitRepository;}
+    public Object getBottlesOrCans() {return produitRepository;}
 
     @GetMapping("/produits/tofu-choco")
-    public getTofuOrChocoUnder100(){
+    public Object getTofuOrChocoUnder100(){
         return produitRepository;
     }
 
