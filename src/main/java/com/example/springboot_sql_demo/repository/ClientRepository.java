@@ -45,7 +45,11 @@ public class ClientRepository {
         return jdbcTemplate.queryForList("SELECT DISTINCT FROM Client ORDER BY Pays ASC, Ville ASC");
     }
 
-    public Object findClientsWithFormattedData(){
+    public List<Map<String, Object>> findClientsNomInclutContact() {
+        return jdbcTemplate.queryForList("SELECT CodeCli, Societe, Contact, Fonction FROM Client WHERE Societe LIKE CONCAT ('%', Contact, '%')");
+    }
+
+    public List<Map<String, Object>> findClientsWithFormattedData(){
         return jdbcTemplate.queryForList("SELECT CONCAT(Adresse, ', ', CodePostal, ' ', Ville, ', ', Pays) AS 'Adresse complète'"
                 +"RIGHT(CodeCli, 2) AS 'DerniersCaractères', LOWER(Societe) AS 'SocieteMinuscule'"
                 +"REPLACE(Fonction, 'marketing', 'mercatique') AS 'FonctionCorrigee',"

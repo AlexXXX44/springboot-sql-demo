@@ -12,7 +12,7 @@ public class ClientController {
 
     private final ClientRepository clientRepository;
 
-    public ClientController(ClientRepository clientRepository){
+    public ClientController(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
     }
 
@@ -44,5 +44,15 @@ public class ClientController {
     @GetMapping("/clients/paysvilles")
     public List<Map<String, Object>> getDistinctCountriesAndCities() {
         return clientRepository.findDistinctCountriesAndCities();
+    }
+
+    @GetMapping("/clients/nom-contains-contact")
+    public List<Map<String, Object>> getClientsNomContientContact() {
+        return clientRepository.findClientsNomInclutContact();
+    }
+
+    @GetMapping("/clients")
+    public List<Map<String, Object>> getClientsWithFormattedData() {
+        return clientRepository.findClientsWithFormattedData();
     }
 }
