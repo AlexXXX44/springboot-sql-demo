@@ -57,7 +57,17 @@ public class ClientController {
     }
 
     @GetMapping("/produits-par-client-categorie")
-    public List<Map<String ,Object>> produitsClientCategorie() {
+    public List<Map<String, Object>> produitsClientCategorie() {
         return clientRepository.countProduitsClientCategorie();
+    }
+
+    @GetMapping("/clients/camembert-pierrot")
+    public List<Map<String, Object>> getClientsWhoOrderedCamembertPierrot() {
+        return clientRepository.getClientsWhoOrderedCamembertPierrot();
+    }
+
+    @GetMapping("/clients/tous-produits-exotic")
+    public List<Map<String, Object>> getClientsWhoOrderedAllExoticProducts() {
+        return clientRepository.getClientsWhoOrderedAllExoticProducts();
     }
 }

@@ -3,6 +3,7 @@ package com.example.springboot_sql_demo.repository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -36,5 +37,22 @@ public class FournisseurRepository {
         return jdbcTemplate.queryForObject("SELECT (" +
                 "SELECT COUNT(*) FROM Produit p WHERE p.NumFourn = f.NumFourn) AS NbProduits" +
                 "FROM Fournisseur f WHERE f.NomFourn = 'Mayumis'", Integer.class);
+    }
+
+    // 2. Fournisseurs dont aucun produit n'a été commandé par un client français
+    public List<Map<String, Object>> getSuppliersWithoutFrenchClientsOrders() {
+        return jdbcTemplate.queryForList("SELECT * FROM Fournisseur f WHERE NOT EXISTS (" +
+                "SELECT 1 FROM Produit p WHERE p.NumFourn = f.NumFourn AND p.RefProd IN (" +
+                "SELECT dc.RefProd FROM DetailCommande dc WHERE dc.NoCom IN (" +
+                "SELECT c.NoCom FROM Commande c WHERE c.CodeCli IN (" +
+                "SELECT cli.CodeCli FROM Client cli WHERE cli.Pays = 'France'))))");
+    }
+
+    // 4. Nombre de fournisseurs n’ayant pas de commandes livrées au Canada
+    public Integer countSuppliersWithoutCanadaOrders() {
+        return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM Fournisseur f WHERE NOT EXISTS (" +
+                "SELECT 1 FROM Produit p WHERE p.NumFourn = f.NumFourn AND p.RefProd IN (" +
+                "SELECT dc.RefProd FROM DetailCommande dc WHERE dc.NoCom IN (" +
+                "SELECT c.NoCom FROM Commande c WHERE c.PaysLiv = 'Canada')))", Integer.class);
     }
 }

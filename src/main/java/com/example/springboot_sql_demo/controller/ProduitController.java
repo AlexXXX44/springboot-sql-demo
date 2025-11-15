@@ -16,14 +16,9 @@ public class ProduitController {
         this.produitRepository = produitRepository;
     }
 
-    @GetMapping("/produits")
-    public Object getAllProduits() {
-        return produitRepository.findAal();
-    }
-
     @GetMapping("/produits/first10")
     public Object getFirst10() {
-        return produitRepository.findAal();
+        return produitRepository.findAll();
     }
 
     @GetMapping("/produits/sorted")

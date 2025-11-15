@@ -15,7 +15,7 @@ public class ProduitRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<Map<String, Object>> findAal() {
+    public List<Map<String, Object>> findAll() {
         return jdbcTemplate.queryForList("SELECT * FROM Produit LIMIT 10");
     }
 

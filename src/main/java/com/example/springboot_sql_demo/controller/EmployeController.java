@@ -41,4 +41,8 @@ public class EmployeController {
     public List<Map<String, Object>> getEmployeesWithoutOrders() {
         return employeRepository.getEmployeesWithoutOrders();
     }
+
+    @GetMapping("/employes/tous-pays")
+    public List<Map<String, Object>> getEmployeesWithClientsInAllCountries() {
+        return employeRepository.getEmployeesWithClientsInAllCountries();}
 }

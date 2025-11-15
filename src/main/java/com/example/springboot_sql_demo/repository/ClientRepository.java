@@ -3,6 +3,7 @@ package com.example.springboot_sql_demo.repository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -66,5 +67,23 @@ public class ClientRepository {
                 "JOIN Categorie cat ON cat.CodeCateg = p.CodeCateg" +
                 "GROUP BY cli.CodeCli, cli.Societe, cat.CodeCateg, cat.NomCateg" +
                 "ORDER BY cli.CodeCli, cat.CodeCateg");
+    }
+
+    // 1. Clients ayant commandé du Camembert Pierrot
+    public List<Map<String, Object>> getClientsWhoOrderedCamembertPierrot() {
+        return jdbcTemplate.queryForList("SELECT * FROM Client Cli WHERE cli.CodeCli IN (" +
+                "SELECT c.CodeCli FROM Commande c WHERE c.NoCom IN (" +
+                "SELECT dc.NoCom FROM DetailCommande dc WHERE dc.RefProd = (" +
+                "SELECT p.RefProd FROM Produit p WHERE p.NomProd = 'Camenbert Pierrot')))");
+    }
+
+    // 3. Clients ayant commandé tous les produits du fournisseur Exotic Liquids
+    public List<Map<String, Object>> getClientsWhoOrderedAllExoticProducts() {
+        return jdbcTemplate.queryForList("SELECT cli.* FROM Client cli WHERE NOT EXISTS (" +
+                "SELECT p.RefProd FROM Produit p WHERE p.NumFourn = (" +
+                "SELECT f.NumFourn FROM Fournisseur f WHERE f.NomFourn = 'Exotic Liquids')" +
+                "AND p.RefProd NOT IN (" +
+                "SELECT dc.RefProd FROM DetailCommande dc WHERE dc.NoCom IN (" +
+                "SELECT c.NoCom FROM Commande c WHERE c.CodeCli = cli.CodeCli)))");
     }
 }

@@ -63,4 +63,12 @@ public class EmployeRepository {
         return jdbcTemplate.queryForList("SELECT * FROM Employe e WHERE e.NoEmp NOT IN (" +
                 "SELECT c.NoEmp FROM Commande c)");
     }
+
+    // 5. Employés ayant une clientèle dans tous les pays
+    public List<Map<String, Object>> getEmployeesWithClientsInAllCountries() {
+        return jdbcTemplate.queryForList("SELECT e.* FROM Employe e WHERE NOT EXISTS (" +
+                "SELECT cli.Pays FROM Client Client Cli GROUP BY cli.Pays HAVING cli.Pays NOT IN (" +
+                "SELECT DISTINCT cli2.Pays FROM Client cli2 WHERE cli2.CodeCli IN (" +
+                "SELECT c.CodeCli FROM Commande c WHERE c.NoEmp = e.NoEmp)))");
+    }
 }

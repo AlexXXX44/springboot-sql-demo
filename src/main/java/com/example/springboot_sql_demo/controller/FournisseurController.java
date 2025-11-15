@@ -22,7 +22,7 @@ public class FournisseurController {
         return fournisseurRepository.findFrenchSuppliers();
     }
 
-    @GetMapping("/produits")
+    @GetMapping("/fournisseurs/produits")
     public List<Map<String,Object>> produitsParFournisseur() {
         return fournisseurRepository.countProduitsParFournisseur();
     }
@@ -37,4 +37,13 @@ public class FournisseurController {
     public Integer countProductsByMayumis() {
         return fournisseurRepository.countProductsByMayumis();
     }
+
+    @GetMapping("/fournisseurs/sans-commandes-france")
+    public List<Map<String, Object>> getSuppliersWithoutFrenchClientsOrders() {
+        return fournisseurRepository.getSuppliersWithoutFrenchClientsOrders();
+    }
+
+    @GetMapping("/fournisseurs/sans-canada")
+    public Integer countSuppliersWithoutCanadaOrders() {
+        return fournisseurRepository.countSuppliersWithoutCanadaOrders();}
 }
