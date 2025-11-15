@@ -64,4 +64,14 @@ public class CommandeController {
     public List<Map<String, Object>> getCommandesRetardes() {
         return commandeRepository.findCommandesEnRetard();
     }
+
+    @GetMapping("/lazy-k")
+    public List<Map<String,Object>> commandesLazyK() {
+        return commandeRepository.getCommandesLazyK();
+    }
+
+    @GetMapping("/commandes")
+    public List<Map<String,Object>> commandesParMessager() {
+        return commandeRepository.countCommandesParMessagerFaitMain();
+    }
 }

@@ -36,12 +36,12 @@ public class ClientRepository {
     }
 
     // 5️⃣ Lister les différents pays des clients
-    public List<Map<String, Object>> findDistinctCountries () {
+    public List<Map<String, Object>> findDistinctCountries() {
         return jdbcTemplate.queryForList("SELECT DISTINCT Pays FROM Client;");
     }
 
     // 6️⃣ Lister les pays et villes triés alphabétiquement
-    public List<Map<String, Object>> findDistinctCountriesAndCities () {
+    public List<Map<String, Object>> findDistinctCountriesAndCities() {
         return jdbcTemplate.queryForList("SELECT DISTINCT FROM Client ORDER BY Pays ASC, Ville ASC");
     }
 
@@ -49,11 +49,22 @@ public class ClientRepository {
         return jdbcTemplate.queryForList("SELECT CodeCli, Societe, Contact, Fonction FROM Client WHERE Societe LIKE CONCAT ('%', Contact, '%')");
     }
 
-    public List<Map<String, Object>> findClientsWithFormattedData(){
+    public List<Map<String, Object>> findClientsWithFormattedData() {
         return jdbcTemplate.queryForList("SELECT CONCAT(Adresse, ', ', CodePostal, ' ', Ville, ', ', Pays) AS 'Adresse complète'"
-                +"RIGHT(CodeCli, 2) AS 'DerniersCaractères', LOWER(Societe) AS 'SocieteMinuscule'"
-                +"REPLACE(Fonction, 'marketing', 'mercatique') AS 'FonctionCorrigee',"
-                +"CASE WHEN Fonction LIKE '%Chef%' THEN 'Oui' ELSE 'Non' END AS 'ContientChef'"
-                +"FROM Client");
+                + "RIGHT(CodeCli, 2) AS 'DerniersCaractères', LOWER(Societe) AS 'SocieteMinuscule'"
+                + "REPLACE(Fonction, 'marketing', 'mercatique') AS 'FonctionCorrigee',"
+                + "CASE WHEN Fonction LIKE '%Chef%' THEN 'Oui' ELSE 'Non' END AS 'ContientChef'"
+                + "FROM Client");
+    }
+
+    public List<Map<String, Object>> countProduitsClientCategorie() {
+        return jdbcTemplate.queryForList("SELECT cli.CodeCli, cli.Societe, cat.CodeCateg, cat.NomCateg," +
+                "SUM(dc.Qte) AS TotalProduits FROM Client cli" +
+                "JOIN Commande c ON cli.CodeCli = c.CodeCli" +
+                "JOIN DetailCommande dc ON c.NoCom = dc.NoCom" +
+                "JOIN Produit p ON dc.RefProd = p.RefProd" +
+                "JOIN Categorie cat ON cat.CodeCateg = p.CodeCateg" +
+                "GROUP BY cli.CodeCli, cli.Societe, cat.CodeCateg, cat.NomCateg" +
+                "ORDER BY cli.CodeCli, cat.CodeCateg");
     }
 }

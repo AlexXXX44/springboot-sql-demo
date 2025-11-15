@@ -55,4 +55,9 @@ public class ClientController {
     public List<Map<String, Object>> getClientsWithFormattedData() {
         return clientRepository.findClientsWithFormattedData();
     }
+
+    @GetMapping("/produits-par-client-categorie")
+    public List<Map<String ,Object>> produitsClientCategorie() {
+        return clientRepository.countProduitsClientCategorie();
+    }
 }

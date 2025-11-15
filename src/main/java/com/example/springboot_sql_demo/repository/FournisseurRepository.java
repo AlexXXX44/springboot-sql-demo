@@ -11,7 +11,7 @@ public class FournisseurRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public FournisseurRepository(JdbcTemplate jdbcTemplate){
+    public FournisseurRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -19,5 +19,15 @@ public class FournisseurRepository {
     public List<Map<String, Object>> findFrenchSuppliers() {
         return jdbcTemplate.queryForList("SELECT Societe AS NomFournisseur, Contact, Ville FROM Fournisseur" +
                 "WHERE Pays='France' ORDER BY Ville ASC");
+    }
+
+    public List<Map<String, Object>> countProduitsParFournisseur() {
+        return jdbcTemplate.queryForList("SELECT f.NumFourn, f.NomFourn, COUNT(p.RefProd) AS NbProduits" +
+                "FROM Fournisseur f LEFT JOIN Produit p ON p.NumFourn = f.NumFourn GROUP BY f.NumFourn, f.NomFourn");
+    }
+
+    public List<Map<String, Object>> countProduitsParPays() {
+        return jdbcTemplate.queryForList("SELECT f.Pays, COUNT(p.RefProd) AS NbProduits FROM Fournisseur f" +
+                "LEFT JOIN Produit p ON f.NumFourn = p.NumFourn GROUP BY f.Pays");
     }
 }

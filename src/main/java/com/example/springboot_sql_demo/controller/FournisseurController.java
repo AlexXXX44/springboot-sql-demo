@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
+import java.util.SequencedCollection;
 
 @RestController
 public class FournisseurController {
@@ -20,4 +21,15 @@ public class FournisseurController {
     public List<Map<String, Object>> getFrenchSuppliers(){
         return fournisseurRepository.findFrenchSuppliers();
     }
+
+    @GetMapping("/produits")
+    public List<Map<String,Object>> produitsParFournisseur() {
+        return fournisseurRepository.countProduitsParFournisseur();
+    }
+
+    @GetMapping("/produits-par-pays")
+    public List<Map<String, Object>> produitsParPays() {
+        return fournisseurRepository.countProduitsParPays();
+    }
+
 }
