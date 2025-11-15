@@ -69,4 +69,18 @@ public class CommandeRepository {
                 "FROM Messager m")
                 ;
     }
+
+    // 3. Nombre de commandes des employés sous "Patrick Emery"
+    public Integer countOrdersByEmployeesUnderPatrickEmery() {
+
+        return jdbcTemplate.queryForObject("SELECT COUNT(*)" +
+                "FROM Commande c" +
+                "WHERE c.NoEmp IN (" +
+                "SELECT e.NoEmp FROM Employe e WHERE e.NoResp = (" +
+                "SELECT emp.NoEmp FROM Employe emp" +
+                "WHERE emp.NomEmp = 'Emery' AND emp.PrenomEmp ='Patrick' " +
+                ")", Integer.class
+        );
+    }
+
 }

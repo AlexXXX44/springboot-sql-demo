@@ -70,8 +70,14 @@ public class CommandeController {
         return commandeRepository.getCommandesLazyK();
     }
 
-    @GetMapping("/commandes")
+    @GetMapping("/commandes-par-messager")
     public List<Map<String,Object>> commandesParMessager() {
         return commandeRepository.countCommandesParMessagerFaitMain();
+    }
+
+    // 3. Nombre de commandes des employés sous Patrick Emery
+    @GetMapping("/employes/emery/nombre-commandes")
+    public Integer countOrdersByEmployeesUnderPatrickEmery() {
+        return commandeRepository.countOrdersByEmployeesUnderPatrickEmery();
     }
 }

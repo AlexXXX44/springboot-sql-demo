@@ -57,4 +57,10 @@ public class EmployeRepository {
                 "               LEFT JOIN Client cli ON c.CodeCli = cli.CodeCli" +
                 "GROUP BY e.NoEmp, e.NomEmp, e.PrenomEmp");
     }
+
+    // 1. Employés n'ayant jamais effectué une commande
+    public List<Map<String, Object>> getEmployeesWithoutOrders() {
+        return jdbcTemplate.queryForList("SELECT * FROM Employe e WHERE e.NoEmp NOT IN (" +
+                "SELECT c.NoEmp FROM Commande c)");
+    }
 }

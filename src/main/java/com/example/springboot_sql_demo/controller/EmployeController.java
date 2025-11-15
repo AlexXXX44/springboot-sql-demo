@@ -26,14 +26,19 @@ public class EmployeController {
         return employeRepository.findInfosEmbauche();
     }
 
-    @GetMapping("/commandes")
+    @GetMapping("/employes/commandes")
     public List<Map<String, Object>> commandesParEmploye() {
         return employeRepository.countCommandesParEmploye();
     }
 
-    @GetMapping("/clients/pays")
+    @GetMapping("/clients/pays-par-employe")
     public List<Map<String, Object>> paysClientsParEmploye() {
         return employeRepository.countPaysClientsParEmploye();
     }
 
+    // 1. Employés n'ayant jamais effectué une commande
+    @GetMapping("/employes/sans-commandes")
+    public List<Map<String, Object>> getEmployeesWithoutOrders() {
+        return employeRepository.getEmployeesWithoutOrders();
+    }
 }

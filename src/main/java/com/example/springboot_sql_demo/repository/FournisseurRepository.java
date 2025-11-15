@@ -30,4 +30,11 @@ public class FournisseurRepository {
         return jdbcTemplate.queryForList("SELECT f.Pays, COUNT(p.RefProd) AS NbProduits FROM Fournisseur f" +
                 "LEFT JOIN Produit p ON f.NumFourn = p.NumFourn GROUP BY f.Pays");
     }
+
+    // 2. Nombre de produits proposés par "Mayumis"
+    public Integer countProductsByMayumis() {
+        return jdbcTemplate.queryForObject("SELECT (" +
+                "SELECT COUNT(*) FROM Produit p WHERE p.NumFourn = f.NumFourn) AS NbProduits" +
+                "FROM Fournisseur f WHERE f.NomFourn = 'Mayumis'", Integer.class);
+    }
 }

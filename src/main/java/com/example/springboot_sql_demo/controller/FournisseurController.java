@@ -32,4 +32,9 @@ public class FournisseurController {
         return fournisseurRepository.countProduitsParPays();
     }
 
+    // 2. Nombre de produits de "Mayumis"
+    @GetMapping("/fournisseurs/mayumis/nb-produits")
+    public Integer countProductsByMayumis() {
+        return fournisseurRepository.countProductsByMayumis();
+    }
 }
