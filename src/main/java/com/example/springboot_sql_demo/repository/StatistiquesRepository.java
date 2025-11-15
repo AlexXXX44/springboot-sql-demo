@@ -134,4 +134,24 @@ public class StatistiquesRepository {
                 "COUNT(c.NoCom) AS NbCommandes FROM Employe e LEFT JOIN Commande ON e.NoEmp = c.NoEmp" +
                 "GROUP BY e.NoEmp, e.NomEmp ORDER BY NbCommandes ASC LIMIT 1");
     }
+
+    public List<Map<String, Object>> produitsEtFournisseurs() {
+        return jdbcTemplate.queryForList("SELECT p.RefProd AS ReferenceProduit, p.NomProd AS NomProduit, p.PrixUnit AS PrixUnitaire," +
+                "f.NumFourn AS NumeroFournisseur, f.NomFourn AS NomFournisseur, f.Ville AS VilleFournisseur" +
+                "f.Pays AS PaysFournisseur FROM Produit p JOIN Fournisseur f ON p.NumFourn = f.NumFourn" +
+                "ORDER BY f.NomFourn, p.NomProd");
+    }
+
+    public List<Map<String, Object>> commandesClientLazyK() {
+        return jdbcTemplate.queryForList("SELECT c.NoCom AS NumeroCommande, c.DateCom AS DateCommande, c.ALivAvant AS DateLimiteLivraison," +
+                "c.DateEnv AS DateEnvoi, c.PaysLiv AS PaysLivraison, c.Port AS FraisDePort, cli.Societe AS NomClient" +
+                "FROM Commande c JOIN Client cli ON c.CodeCli = cli.CodeCli" +
+                "WHERE cli.Societe = 'Lazy K Kountry Store' ORDER BY c.DateCom;");
+    }
+
+    public List<Map<String, Object>> nbCommandesParMessager() {
+        return jdbcTemplate.queryForList("SELECT m.No_Mess as messager_id, m.NomMess as nom_messager, COUNT(*) as nb_commandes" +
+                "FROM Commande c JOIN Messager m ON c.noMess = m.NoMess GROUP BY m.NoMess, m.NomMess" +
+                "ORDER BY nb_commandes DESC");
+    }
 }

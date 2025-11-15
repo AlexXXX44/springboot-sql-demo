@@ -60,7 +60,7 @@ public class StatsController {
         return statistiquesRepository.getCoutPortMinMax();
     }
 
-    @GetMapping("/port-par-messager")
+    @GetMapping("/frais-port-par-messager")
     public List<Map<String, Object>> getTotalFraisPortParMessager() {
         return statistiquesRepository.getTotalFraisPortParMessager();
     }
@@ -70,7 +70,7 @@ public class StatsController {
         return statistiquesRepository.countEmployesParFonction();
     }
 
-    @GetMapping("/port-par-messager")
+    @GetMapping("/moyen-port-par-messager")
     public List<Map<String, Object>> getMoyenPortParMessager() {
         return statistiquesRepository.avgPortParMessager();
     }
