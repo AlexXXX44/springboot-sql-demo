@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head><title>Produits par pays</title></head>
+<body>
+
+<h2>Produits par pays d'origine des fournisseurs</h2>
+
+<table border="1">
+    <tr>
+        <th>Pays</th>
+        <th>Nb Produits</th>
+    </tr>
+
+    <tr th:each="s : ${stats}">
+        <td th:text="${s.pays}"></td>
+        <td th:text="${s.nbProduits}"></td>
+    </tr>
+</table>
+
+</body>
+</html>

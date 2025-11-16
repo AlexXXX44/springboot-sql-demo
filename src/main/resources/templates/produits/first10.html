@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head><title>10 premiers produits</title></head>
+<body>
+
+<h1>10 premiers produits</h1>
+
+<table border="1">
+    <tr>
+        <th>RefProd</th>
+        <th>NomProd</th>
+        <th>PrixUnit</th>
+        <th>UnitesStock</th>
+    </tr>
+
+    <tr th:each="p : ${produits}">
+        <td th:text="${p.RefProd}"></td>
+        <td th:text="${p.NomProd}"></td>
+    </tr>
+</table>
+</body>
+</html>

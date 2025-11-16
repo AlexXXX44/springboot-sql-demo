@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head><title>Pays des clients par employé</title></head>
+<body>
+
+<h2>Nombre de pays clients par employé</h2>
+
+<table border="1">
+    <tr>
+        <th>Employé</th>
+        <th>Nb pays</th>
+    </tr>
+
+    <tr th:each="s : ${stats}">
+        <td th:text="${s.nomEmploye}"></td>
+        <td th:text="${s.nbPays}"></td>
+    </tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head><title>Catégories avec ≥ 10 produits</title></head>
+<body>
+
+<h2>Catégories avec au moins 10 produits</h2>
+
+<table border="1">
+    <tr>
+        <th>Catégorie</th>
+        <th>Nb Produits</th>
+        <th>Prix moyen</th>
+    </tr>
+
+    <tr th:each="c : ${categories}">
+        <td th:text="${c.nomCategorie}"></td>
+        <td th:text="${c.nbProduits}"></td>
+        <td th:text="${c.prixMoyen}"></td>
+    </tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head><title>Commandes par employé</title></head>
+<body>
+
+<h2>Nombre de commandes par employé</h2>
+
+<table border="1">
+    <tr>
+        <th>Employé</th>
+        <th>Nb Commandes</th>
+    </tr>
+
+    <tr th:each="s : ${stats}">
+        <td th:text="${s.nomEmploye}"></td>
+        <td th:text="${s.nbCommandes}"></td>
+    </tr>
+</table>
+
+</body>
+</html>

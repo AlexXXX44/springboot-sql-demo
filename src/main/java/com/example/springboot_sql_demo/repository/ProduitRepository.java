@@ -24,7 +24,7 @@ public class ProduitRepository {
     }
 
     public List<Map<String, Object>> findTop3MostExpensive() {
-        return jdbcTemplate.queryForList("SELECT * FROM Produit ORDER BY PrixUnit");
+        return jdbcTemplate.queryForList("SELECT * FROM Produit ORDER BY PrixUnit DESC LIMIT 3");
     }
 
     // 5️⃣ Produits vendus en bouteilles ou en canettes

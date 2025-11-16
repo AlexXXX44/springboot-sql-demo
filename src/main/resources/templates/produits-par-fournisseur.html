@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head><title>Produits par fournisseur</title></head>
+<body>
+
+<h2>Nombre de produits par fournisseur</h2>
+
+<table border="1">
+    <tr>
+        <th>Fournisseur</th>
+        <th>Nb Produits</th>
+    </tr>
+
+    <tr th:each="s : ${stats}">
+        <td th:text="${s.nomFournisseur}"></td>
+        <td th:text="${s.nbProduits}"></td>
+    </tr>
+</table>
+
+</body>
+</html>

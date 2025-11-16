@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head><title>Produits par client et catégorie</title></head>
+<body>
+
+<h2>Produits commandés par client et par catégorie</h2>
+
+<table border="1">
+    <tr>
+        <th>Client</th>
+        <th>Catégorie</th>
+        <th>Quantité totale</th>
+    </tr>
+
+    <tr th:each="s : ${stats}">
+        <td th:text="${s.nomClient}"></td>
+        <td th:text="${s.nomCategorie}"></td>
+        <td th:text="${s.quantite}"></td>
+    </tr>
+</table>
+
+</body>
+</html>

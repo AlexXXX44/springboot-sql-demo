@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head><title>Commandes Lazy K Kountry Store</title></head>
+<body>
+
+<h2>Commandes du client "Lazy K Kountry Store"</h2>
+
+<table border="1">
+    <tr>
+        <th>Numéro commande</th>
+        <th>Date</th>
+        <th>Employé</th>
+        <th>Frais de port</th>
+    </tr>
+
+    <tr th:each="c : ${commandes}">
+        <td th:text="${c.numCom}"></td>
+        <td th:text="${c.dateCom}"></td>
+        <td th:text="${c.nomEmploye}"></td>
+        <td th:text="${c.port}"></td>
+    </tr>
+</table>
+
+</body>
+</html>
