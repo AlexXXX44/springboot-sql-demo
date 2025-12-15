@@ -43,7 +43,7 @@ public class ClientRepository {
 
     // 6️⃣ Lister les pays et villes triés alphabétiquement
     public List<Map<String, Object>> findDistinctCountriesAndCities() {
-        return jdbcTemplate.queryForList("SELECT DISTINCT FROM Client ORDER BY Pays ASC, Ville ASC");
+        return jdbcTemplate.queryForList("SELECT DISTINCT Pays, Ville FROM Client ORDER BY Pays ASC, Ville ASC");
     }
 
     public List<Map<String, Object>> findClientsNomInclutContact() {
@@ -51,11 +51,15 @@ public class ClientRepository {
     }
 
     public List<Map<String, Object>> findClientsWithFormattedData() {
-        return jdbcTemplate.queryForList("SELECT CONCAT(Adresse, ', ', CodePostal, ' ', Ville, ', ', Pays) AS 'Adresse complète'"
-                + "RIGHT(CodeCli, 2) AS 'DerniersCaractères', LOWER(Societe) AS 'SocieteMinuscule'"
-                + "REPLACE(Fonction, 'marketing', 'mercatique') AS 'FonctionCorrigee',"
-                + "CASE WHEN Fonction LIKE '%Chef%' THEN 'Oui' ELSE 'Non' END AS 'ContientChef'"
-                + "FROM Client");
+        return jdbcTemplate.queryForList("SELECT"
+            +"CONCAT(Adresse, ', ', CodePostal, ' ', Ville, ', ', Pays) AS `Adresse complète`,"
+            +"LOWER(Societe) AS SocieteMinuscule,"
+            +"REPLACE(Fonction, 'marketing', 'mercatique') AS FonctionCorrigee,"
+            +"CASE"
+                +"WHEN Fonction LIKE '%Chef%' THEN 'Oui'"
+                +"ELSE 'Non'"
+            +"END AS ContientChef"
+        +"FROM Client");
     }
 
     public List<Map<String, Object>> countProduitsClientCategorie() {
