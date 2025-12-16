@@ -1,16 +1,18 @@
 package com.example.springboot_sql_demo.controller;
 
 import com.example.springboot_sql_demo.repository.ClientRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 import java.util.Map;
 
 @Controller
-//@GetMapping("/clients")
+@RequestMapping("/clients")
 public class ClientController {
 
     private final ClientRepository clientRepository;
@@ -19,9 +21,16 @@ public class ClientController {
         this.clientRepository = clientRepository;
     }
 
+    private static final Logger log =
+            LoggerFactory.getLogger(ClientController.class);
     @GetMapping("/paris")
     public String getAllFrenchClientsInParis(Model model) {
         List<Map<String, Object>> rows = clientRepository.findFrenchClientsInParis();
+        if (!rows.isEmpty()) {
+            model.addAttribute("columns", rows.getFirst().keySet());
+        }
+        System.out.println(rows);
+        log.info(rows.toString());
         model.addAttribute("rows", rows);
         model.addAttribute("title", "Clients français à Paris");
         return "clients/list_generic";

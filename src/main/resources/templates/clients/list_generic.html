@@ -21,7 +21,7 @@ th:href="@{/css/debug-layout.css}">
 
                 <tbody>
                 <tr th:each="row : ${rows}">
-                    <td th:each="cell : ${rows[0].values()}"
+                    <td th:each="cell : ${row.values()}"
                         th:text="${cell}">val
                     </td>
                 </tr>

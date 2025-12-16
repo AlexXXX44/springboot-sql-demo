@@ -51,15 +51,14 @@ public class ClientRepository {
     }
 
     public List<Map<String, Object>> findClientsWithFormattedData() {
-        return jdbcTemplate.queryForList("SELECT"
-            +"CONCAT(Adresse, ', ', CodePostal, ' ', Ville, ', ', Pays) AS `Adresse complète`,"
-            +"LOWER(Societe) AS SocieteMinuscule,"
-            +"REPLACE(Fonction, 'marketing', 'mercatique') AS FonctionCorrigee,"
-            +"CASE"
-                +"WHEN Fonction LIKE '%Chef%' THEN 'Oui'"
-                +"ELSE 'Non'"
-            +"END AS ContientChef"
-        +"FROM Client");
+        return jdbcTemplate.queryForList("SELECT CONCAT(Adresse, ', ', CodePostal, ' ', Ville, ', ', Pays) AS `Adresse complète`,"
+                + "LOWER(Societe) AS SocieteMinuscule,"
+                + "REPLACE(Fonction, 'marketing', 'mercatique') AS FonctionCorrigee,"
+                + "CASE "
+                + "WHEN Fonction LIKE '%Chef%' THEN 'Oui' "
+                + "ELSE 'Non' "
+                + "END AS ContientChef " +
+                "FROM Client");
     }
 
     public List<Map<String, Object>> countProduitsClientCategorie() {
