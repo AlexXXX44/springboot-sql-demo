@@ -34,8 +34,8 @@ public class DetailsCommandeRepository {
     public List<Map<String, Object>> findRemisesSuperieuresA10() {
         return jdbcTemplate.queryForList("SELECT NoCom, RefProd, ROUND(PrixUnit, 2) AS PrixUnitaireOriginal" +
                                             "Remise * 100 AS RemisePourcent, ROUND(PrixUnit * Remise,2) AS MontantRemise," +
-                                            "ROUND(PrixUnit * (1-Remise),2) AS PrixAvec Remise" +
-                                            "FROM DetailCommande WHEN Remise > 0.10");
+                                            "ROUND(PrixUnit * (1-Remise),2) AS PrixAvecRemise " +
+                                            "FROM DetailCommande WHERE Remise > 0.10");
     }
 
     public List<Map<String, Object>> quantiteTotaleParClientEtProduit() {

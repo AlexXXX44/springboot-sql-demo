@@ -38,7 +38,7 @@ public class CommandeController {
     }
 
     @GetMapping("/commandes/totaux")
-    public List<Map<String, Object>> getQtéTotalsByClient(@PathVariable int noCommande, Model model) {
+    public List<Map<String, Object>> getQteTotalsByClient(Model model) {
         return (List<Map<String, Object>>) model.addAttribute("", detailsCommandeRepository.quantiteTotaleParClientEtProduit());
     }
 

@@ -40,7 +40,7 @@ public class CommandeRepository {
     public List<Map<String, Object>> findStatutLivraison() {
         return jdbcTemplate.queryForList("SELECT NoCom, DateCom, ALivAvant, DateEnv," +
                 "CASE WHEN DateEnv >= ALivAvant THEN 'Commande envoyée en retard'" +
-                "ELSE 'Commande envoyée à temps' END AS StatutLivraison" +
+                "ELSE 'Commande envoyée à temps' END AS StatutLivraison " +
                 "FROM Commande WHERE DateEnv IS NOT NULL");
     }
 
