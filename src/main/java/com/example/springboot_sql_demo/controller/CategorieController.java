@@ -1,10 +1,15 @@
 package com.example.springboot_sql_demo.controller;
 
 import com.example.springboot_sql_demo.repository.CategorieRepository;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+import java.util.List;
+import java.util.Map;
+
+@Controller
 public class CategorieController {
 
     private final CategorieRepository categorieRepository;
@@ -14,7 +19,8 @@ public class CategorieController {
     }
 
     @GetMapping("/categories/descriptions")
-    public Object getCategorieDescriptions() {
-        return categorieRepository.findAllDescriptions();
+    public Object getCategorieDescriptions(Model model) {
+        model.addAttribute("", categorieRepository.findAllDescriptions());
+        return "";
     }
 }

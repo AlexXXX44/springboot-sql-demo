@@ -14,7 +14,8 @@ public class CategorieRepository {
     public void CategorieRepository(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
     }
-    // 1️⃣ Lister uniquement la description des catégories
-    public List<Map<String, Object>> findAllDescriptions() {return jdbcTemplate.queryForList("SELECT description FROM Categorie");}
 
+    // 1️⃣ Lister uniquement la description des catégories
+    public List<Map<String, Object>> findAllDescriptions() {
+        return jdbcTemplate.queryForList("SELECT description FROM Categorie");}
 }

@@ -1,6 +1,7 @@
 package com.example.springboot_sql_demo.controller;
 
 import com.example.springboot_sql_demo.repository.EmployeRepository;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,6 +15,26 @@ public class EmployeController {
 
     public EmployeController(EmployeRepository employeRepository) {
         this.employeRepository = employeRepository;
+    }
+
+    @GetMapping("/representants")
+    public Object getRepresentants(Model model) {
+        return model.addAttribute("", employeRepository.countRepresentants());
+    }
+
+    @GetMapping("/employes-par-fonction")
+    public List<Map<String, Object>> getEmployesParFonction(Model model) {
+        return (List<Map<String, Object>>) model.addAttribute("", employeRepository.countEmployesParFonction());
+    }
+
+    @GetMapping("/employes-plus-petit-commande")
+    public List<Map<String, Object>> getEmployePlusPetitCommande(Model model) {
+        return (List<Map<String, Object>>) model.addAttribute("", employeRepository.employeMoinsDeCommandes());
+    }
+
+    @GetMapping("/employes-sans-commande")
+    public List<Map<String, Object>> getEmployeSansCommande(Model model) {
+            return (List<Map<String, Object>>) model.addAttribute("",employeRepository.getEmployesSansCommande());
     }
 
     @GetMapping("/employes/commandes-france")
@@ -44,5 +65,6 @@ public class EmployeController {
 
     @GetMapping("/employes/tous-pays")
     public List<Map<String, Object>> getEmployeesWithClientsInAllCountries() {
-        return employeRepository.getEmployeesWithClientsInAllCountries();}
+        return employeRepository.getEmployeesWithClientsInAllCountries();
+    }
 }

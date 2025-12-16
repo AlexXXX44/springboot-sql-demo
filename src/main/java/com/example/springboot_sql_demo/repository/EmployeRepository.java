@@ -19,30 +19,53 @@ public class EmployeRepository {
 
     // 9️⃣ Employés ayant réalisé une commande à livrer en France (Lille, Lyon, Nantes)
     public List<Map<String, Object>> findEmployeesWithFrenchOrders() {
-        String sql = "SELECT DISTINCT NoEmp FROM Commande WHERE PaysLiv = 'France' AND VilleLiv IN ('Lille', 'Lyon', 'Nantes')";
-        return jdbcTemplate.queryForList(sql);
+        return jdbcTemplate.queryForList("SELECT DISTINCT NoEmp FROM Commande WHERE PaysLiv = 'France' AND VilleLiv IN ('Lille', 'Lyon', 'Nantes')");
     }
 
     public List<Map<String, Object>> findInfosEmbauche() {
-        return jdbcTemplate.queryForList("SELECT NumEmp, NomEmp, PrenomEmp, EXTRACT(YEAR FROM DateNaiss) AS AnneeNaissance," +
-                "EXTRACT(YEAR FROM DateEmbauche) AS AnneeEmbauche FROM Employe");
+//        return jdbcTemplate.queryForList("SELECT NoEmp, Nom, prenom, EXTRACT(YEAR FROM DateNaiss) AS AnneeNaissance," +
+//                "EXTRACT(YEAR FROM DateEmbauche) AS AnneeEmbauche FROM Employe");
+        return List.of();
     }
 
     public List<Map<String, Object>> findInfosEmbauche1() {
-        return jdbcTemplate.queryForList("SELECT EXTRACT(YEAR FROM DateEmbauche) - EXTRACT(YEAR FROM DateNaiss AS AgeEmbauche," +
-                "EXTRACT(YEAR FROM CURRENT_DATE) - EXTRACT(YEAR FROM DateEmbauche) AS AncienneAnnée FROM Employe");
+//        return jdbcTemplate.queryForList("SELECT EXTRACT(YEAR FROM DateEmbauche) - EXTRACT(YEAR FROM DateNaiss AS AgeEmbauche," +
+//                "EXTRACT(YEAR FROM CURRENT_DATE) - EXTRACT(YEAR FROM DateEmbauche) AS AncienneAnnée FROM Employe");
+        return List.of();
+    }
+
+    public int countRepresentants() {
+        return jdbcTemplate.queryForObject("SELECT COUNT(*) AS NbRepresentants FROM Employe WHERE Fonction LIKE '%représentant%'", Integer.class);
+    }
+
+   public List<Map<String, Object>> countEmployesParFonction() {
+        return jdbcTemplate.queryForList("SELECT Fonction, COUNT(*) AS Employes FROM Employe GROUP BY Fonction ORDER BY Fonction");
+    }
+
+    public List<Map<String, Object>> fonctionsAgeMoyenSup45() {
+        return jdbcTemplate.queryForList("SELECT Fonction, ROUND(AVG(" +
+                "                       (strftime('%Y', 'now') - strftime('%Y', DateNaissance))" +
+                "                       - (strftime('%m-%d', 'now') < strftime('%m-%d', DateNaissance)),1) AS AgeMoyen" +
+                "FROM Employe GROUP BY Fonction HAVING AgeMoyen > 45" +
+                "ORDER BY AgeMoyen DESC");
+    }
+
+    public List<Map<String, Object>> employeMoinsDeCommandes() {
+        return jdbcTemplate.queryForList("SELECT e.NoEmp AS NumeroEmploye, e.Nom AS NomEmploye," +
+                "COUNT(c.NoCom) AS NbCommandes FROM Employe e LEFT JOIN Commande c ON e.NoEmp = c.NoEmp" +
+                "GROUP BY e.NoEmp, e.Nom ORDER BY NbCommandes ASC LIMIT 1");
     }
 
     // 4️⃣ Responsable de chaque employé (auto-jointure)
     public List<Map<String, Object>> getEmployesAvecResponsable() {
-        return jdbcTemplate.queryForList("SELECT e.NoEmp AS NumeroEmploye, e.NomEmp AS NomEmploye, e.PrenomEmp AS PrenomEmploye," +
-                "s.NomEmp AS NomEmploye, s.PrenomEmp AS PrenomResponsable FROM Employe e" +
-                "INNER JOIN Employe s ON e.NoEmp = s.NoEmp ORDER BY e.NoEmp");
+        return jdbcTemplate.queryForList("SELECT e.NoEmp AS NumeroEmploye, e.Nom AS NomEmploye, e.PrenomEmp AS PrenomEmploye," +
+                "s.Nom AS NomEmploye, s.prenom AS PrenomResponsable FROM Employe e" +
+                "INNER JOIN Employe s ON e.NoEmp = s.NoEmp WHERE Fonction='Responsable' ORDER BY e.NoEmp");
     }
 
     //    Existe-t'il un employé n'ayant enregistré aucune commande ?
     public List<Map<String, Object>> getEmployesSansCommande() {
-        return jdbcTemplate.queryForList("SELECT e.NoEmp, e.NomEmp, e.PrenomEmp FROM Employe e LEFT JOIN Commande c ON e.NoEmp = c.Emp" +
+        return jdbcTemplate.queryForList("SELECT e.NoEmp, e.Nom, e.prenom FROM Employe e LEFT JOIN Commande c ON e.NoEmp = c.NoEmp" +
                 "WHERE c.NoEmp IS NULL");
     }
 
