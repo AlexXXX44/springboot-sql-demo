@@ -1,9 +1,9 @@
-INSERT INTO Client (CodeCli, Societe, Contact, Fonction, Adresse, Ville, CodePostal, Pays, Telephone, Fax)
+INSERT INTO Client (CodeCli, Societe, Contact, Fonction, Adresse, Ville, CodePostal, Pays, Tel, Fax)
 VALUES
     ('QUICK', 'Quick Restaurant', 'Jean Dupont', 'Chef marketing', '1 rue de Paris', 'Paris', '75001', 'France', '0102030405', NULL),
     ('LAZYK', 'Lazy K Kountry Store', 'Anne Martin', 'Directrice', 'Main Street', 'Seattle', '98101', 'USA', '555-1234', '555-9999');
 INSERT INTO Client
-(CodeCli, Societe, Contact, Fonction, Adresse, Ville, CodePostal, Pays, Telephone, Fax)
+(CodeCli, Societe, Contact, Fonction, Adresse, Ville, CodePostal, Pays, Tel, Fax)
 VALUES
     ('ALPES', 'Alpes Market', 'Jean Dupont', 'Acheteur', '12 rue du Lac', 'Genève', '1201', 'Suisse', '0102030405', NULL),
 
@@ -44,7 +44,7 @@ VALUES
         'France'
     );
 INSERT INTO Produit
-(RefProd, NomProd, PrixUnit, QteStock, Indisponible)
+(RefProd, NomProd, PrixUnit, UnitesStock, Indisponible)
 VALUES
     (1, 'Camembert Pierrot', 12.50, 100, 0),
     (2, 'Brie de Meaux', 10.00, 50, 0);
