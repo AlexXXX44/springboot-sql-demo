@@ -34,7 +34,7 @@ public class ProduitRepository {
 
     // 7️⃣ Produits du fournisseur n°8 entre 10 et 100 euros
     public List<Map<String, Object>> findProductsFromSupplier8Between10And100() {
-        return jdbcTemplate.queryForList("SELECT UPPER(Nomprod) AS NomProduitMaj, Refprod AS Reference, PrixUnit AS PrixUnitaire" +
+        return jdbcTemplate.queryForList("SELECT UPPER(Nomprod) AS NomProduitMaj, Refprod AS Reference, PrixUnit AS PrixUnitaire " +
                 "FROM Produit WHERE noFour = 8 AND PrixUnit BETWEEN 10 AND 100");
     }
 
@@ -62,48 +62,48 @@ public class ProduitRepository {
     }
 
     public List<Map<String, Object>> countCategoriesParFournisseur() {
-        return jdbcTemplate.queryForList("SELECT NoFour AS NumFournisseur, COUNT(DISTINCT CodeCateg) AS NbCategoriesFournies FROM Produit" +
+        return jdbcTemplate.queryForList("SELECT NoFour AS NumFournisseur, COUNT(DISTINCT CodeCateg) AS NbCategoriesFournies FROM Produit " +
                 "GROUP BY NoFour ORDER BY NoFour");
     }
 
     public List<Map<String, Object>> fournisseursUnSeulProduit() {
-        return jdbcTemplate.queryForList("SELECT NoFour AS NumeroFournisseur, Societe AS NomFournisseur, COUNT(*) AS NbProduits" +
+        return jdbcTemplate.queryForList("SELECT NoFour AS NumeroFournisseur, Societe AS NomFournisseur, COUNT(*) AS NbProduits " +
                 "FROM Produit JOIN Fournisseur USING (NoFour) GROUP BY NoFour, Societe HAVING COUNT(*)=1 ORDER BY Societe");
     }
 
     public List<Map<String, Object>> categoriesPrixMoyenSup150(){
-        return jdbcTemplate.queryForList("SELECT CodeCateg AS CodeCategorie, NomCateg AS NomCategorie, ROUND(AVG(PrixUnit),2) AS PrixMoyen"
-                +"FROM Produit JOIN Categorie USING (CodeCateg) GROUP BY CodeCateg, NomCateg HAVING AVG(PrixUnit) > 150"
+        return jdbcTemplate.queryForList("SELECT CodeCateg AS CodeCategorie, NomCateg AS NomCategorie, ROUND(AVG(PrixUnit),2) AS PrixMoyen "
+                +"FROM Produit JOIN Categorie USING (CodeCateg) GROUP BY CodeCateg, NomCateg HAVING AVG(PrixUnit) > 150 "
                 +"ORDER BY PrixMoyen DESC");
     }
 
     public List<Map<String, Object>> fournisseursUneCategorie() {
-        return jdbcTemplate.queryForList("SELECT NoFour AS NumeroFournisseur, Societe AS NomFournisseur, COUNT(DISTINCT CodeCateg) AS NbCategories" +
-                "FROM Produit JOIN Fournisseur USING (NoFour) GROUP BY NoFour, Societe" +
+        return jdbcTemplate.queryForList("SELECT NoFour AS NumeroFournisseur, Societe AS NomFournisseur, COUNT(DISTINCT CodeCateg) AS NbCategories " +
+                "FROM Produit JOIN Fournisseur USING (NoFour) GROUP BY NoFour, Societe " +
                 "HAVING COUNT(DISTINCT CodeCateg) = 1 ORDER BY Societe");
     }
 
     public List<Map<String, Object>> categoriesAvecPrixMoyenEtMinProduits() {
         return jdbcTemplate.queryForList("SELECT c.CodeCateg AS CodeCategorie, c.NomCateg AS NomCategorie," +
-                "COUNT(p.RefProd) AS NbProduits, ROUND(AVG(p.PrixUnit),2) AS MontantPrixMoyen FROM Produit p" +
-                "JOIN Categorie c ON p.CodeCateg = c.CodeCateg GROUP BY c.CodeCateg, c.NomCateg" +
+                "COUNT(p.RefProd) AS NbProduits, ROUND(AVG(p.PrixUnit),2) AS MontantPrixMoyen FROM Produit p " +
+                "JOIN Categorie c ON p.CodeCateg = c.CodeCateg GROUP BY c.CodeCateg, c.NomCateg " +
                 "HAVING COUNT(p.RefProd) >= 10 ORDER BY MontantPrixMoyen DESC");
     }
 
     public List<Map<String,Object>> getProduitsAvecFournisseurs() {
-        return jdbcTemplate.queryForList("SELECT p.RefProd AS ReferenceProduit, p.Nomprod AS NomProduit, p.PrixUnit AS PrixUnitaire," +
-                "f.NoFour AS NumeroFournisseur, f.Societe AS NomFournisseur, f.Ville AS VilleFournisseur, f.Pays AS PaysFournisseur" +
+        return jdbcTemplate.queryForList("SELECT p.RefProd AS ReferenceProduit, p.Nomprod AS NomProduit, p.PrixUnit AS PrixUnitaire, " +
+                "f.NoFour AS NumeroFournisseur, f.Societe AS NomFournisseur, f.Ville AS VilleFournisseur, f.Pays AS PaysFournisseur " +
                 "FROM Produit p JOIN Fournisseur f ON p.NoFour= f.NoFour ORDER BY f.Societe, p.Nomprod");
     }
 
     public List<Map<String, Object>> countCommandesParProduit() {
-        return jdbcTemplate.queryForList("SELECT p.RefProd, p.Nomprod, COUNT(dc.NoCom) AS NbCommandes FROM Produit p" +
-                "LEFT JOIN DetailCommande dc ON p.RefProd = dc.RefProd GROUP BY p.RefProd, p.Nomprod" +
+        return jdbcTemplate.queryForList("SELECT p.RefProd, p.Nomprod, COUNT(dc.NoCom) AS NbCommandes FROM Produit p " +
+                "LEFT JOIN DetailCommande dc ON p.RefProd = dc.RefProd GROUP BY p.RefProd, p.Nomprod " +
                 "ORDER BY NbCommandes DESC");
     }
 
     public List<Map<String,Object>> getProduitsSansCommandes() {
-        return jdbcTemplate.queryForList("SELECT p.RefProd, p.Nomprod, p.PrixUnit FROM Produit p" +
+        return jdbcTemplate.queryForList("SELECT p.RefProd, p.Nomprod, p.PrixUnit FROM Produit p " +
                 "LEFT JOIN DetailCommande dc ON p.RefProd = dc.RefProd WHERE p.RefProd IS NULL");
     }
 
@@ -115,13 +115,13 @@ public class ProduitRepository {
                 "    p.NoFour," +
                 "    (SELECT f.NoFour" +
                 "     FROM Fournisseur f" +
-                "     WHERE f.NoFour = p.NoFour) AS NomFournisseur," +
+                "     WHERE f.NoFour = p.NoFour) AS NomFournisseur, " +
                 "    (SELECT f.Ville" +
                 "     FROM Fournisseur f" +
-                "     WHERE f.NoFour = p.NoFour) AS VilleFournisseur," +
+                "     WHERE f.NoFour = p.NoFour) AS VilleFournisseur, " +
                 "    (SELECT f.Pays" +
                 "     FROM Fournisseur f" +
-                "     WHERE f.NoFour = p.NoFour) AS PaysFournisseur" +
+                "     WHERE f.NoFour = p.NoFour) AS PaysFournisseur " +
                 "FROM Produit p");
     }
 }
