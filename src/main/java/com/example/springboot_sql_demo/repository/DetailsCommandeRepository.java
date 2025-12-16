@@ -19,7 +19,7 @@ public class DetailsCommandeRepository {
     public List<Map<String, Object>> findOrderDetailsWithDiscount(int noCommande){
         return jdbcTemplate.queryForList("SELECT PrixUnit, Qte, Remise," +
                 " (PrixUnit * Qte * Remise) AS MontantRemise," +
-                "(PrixUnit * Qte * (1-Remise)) AS MontantAPayer" +
+                "(PrixUnit * Qte * (1-Remise)) AS MontantAPayer " +
                 "FROM DetailCommande WHERE NoCom = 10251", noCommande);
     }
 
