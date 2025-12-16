@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{layout :: layout(~{::section})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::section})}">
 <section>
     <div class="container-fluid">
         <div class="d-flex justify-content-between align-items-center mb-3">
@@ -13,9 +12,8 @@
                 <thead class="table-dark">
                 <tr>
                     <th th:if="${rows != null and #lists.isEmpty(rows) == false}"
-                        th:each="k : ${#maps.keys(rows[0])}"
-                        th:text="${k}">col
-                    </th>
+                        th:each="col : ${rows[0].keySet()}"
+                        th:text="${col}">col
 
                     <th th:if="${rows == null or #lists.isEmpty(rows)}">Aucune donnée</th>
                 </tr>
@@ -25,8 +23,8 @@
 
                 <tr th:each="r : ${rows}">
 
-                    <td th:each="k : ${#maps.keys(rows[0])}"
-                        th:text="${r[k]}">val
+                    <td th:each="col : ${rows[0].keySet()}"
+                        th:text="${col}">val
                     </td>
                 </tr>
 
