@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::section})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::section})}"
+th:href="@{/css/debug-layout.css}">
 <section>
     <div class="container-fluid">
         <div class="d-flex justify-content-between align-items-center mb-3">
@@ -8,28 +9,21 @@
         </div>
 
         <div class="table-responsive">
-            <table class="table table-striped table-bordered">
+            <table class="table table-striped table-bordered"
+                   th:if="${rows != null and !rows.isEmpty()}">
                 <thead class="table-dark">
                 <tr>
-                    <th th:if="${rows != null and #lists.isEmpty(rows) == false}"
-                        th:each="col : ${rows[0].keySet()}"
-                        th:text="${col}">col
-
-                    <th th:if="${rows == null or #lists.isEmpty(rows)}">Aucune donnée</th>
+                    <th th:each="col : ${columns}"
+                        th:text="${col}">Col
+                    </th>
                 </tr>
                 </thead>
 
                 <tbody>
-
-                <tr th:each="r : ${rows}">
-
-                    <td th:each="col : ${rows[0].keySet()}"
-                        th:text="${col}">val
+                <tr th:each="row : ${rows}">
+                    <td th:each="cell : ${rows[0].values()}"
+                        th:text="${cell}">val
                     </td>
-                </tr>
-
-                <tr th:if="${rows == null or #lists.isEmpty(rows)}">
-                    <td colspan="100" class="text-center">Aucune donnée à afficher</td>
                 </tr>
                 </tbody>
             </table>
