@@ -75,6 +75,11 @@ VALUES
     (2001, 11, 1, 19.00, 0),
     (2002, 12, 3, 10.00, 0),
     (2003, 10, 1, 18.00, 0);
+INSERT INTO DetailCommande (NoCom, RefProd, Qte, PrixUnit, Remise)
+VALUES
+    (1002, 10, 5, 18, 0),
+    (1002, 11, 5, 19, 0),
+    (1002, 12, 5, 10, 0);
 
 INSERT INTO Categorie (CodeCateg,NomCateg, Description) VALUES
                                                             (1, 'Boissons', 'fait partie des liquides'),

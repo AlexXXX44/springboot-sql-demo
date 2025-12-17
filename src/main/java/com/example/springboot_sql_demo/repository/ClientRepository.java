@@ -87,8 +87,22 @@ public class ClientRepository {
 //                "SELECT p.RefProd FROM Produit p WHERE p.NoFour = (" +
 //                "SELECT f.NoFour FROM Fournisseur f WHERE f.Societe = 'Exotic Liquids')" +
 //                "AND p.RefProd NOT IN (" +
-                " c.Societe FROM Client c WHERE NOT EXISTS (" +
-                "SELECT 1 FROM DetailCommande dc WHERE dc.NoCom IN (" +
-                "SELECT c.NoCom FROM Commande c WHERE c.CodeCli = cli.CodeCli)))");
+//                "SELECT dc.RefProd FROM DetailCommande dc WHERE dc.NoCom IN (" +
+//                "SELECT c.NoCom FROM Commande c WHERE c.CodeCli = cli.CodeCli)))");
+                " c.CodeCli," +
+                "COUNT(DISTINCT p.RefProd) AS produits_commandes," +
+                "(" +
+                "                        SELECT COUNT(*)" +
+                "        FROM Produit p2" +
+                "        JOIN Fournisseur f2 ON f2.NoFour = p2.NoFour" +
+                "        WHERE f2.Societe = 'Exotic Liquids'" +
+                "    ) AS produits_exotic" +
+                "        FROM Client c " +
+                "JOIN Commande co ON co.CodeCli = c.CodeCli " +
+                "JOIN DetailCommande dc ON dc.NoCom = co.NoCom " +
+                "JOIN Produit p ON p.RefProd = dc.RefProd " +
+                "JOIN Fournisseur f ON f.NoFour = p.NoFour " +
+                "WHERE f.Societe = 'Exotic Liquids' " +
+                "GROUP BY c.CodeCli;");
     }
 }
