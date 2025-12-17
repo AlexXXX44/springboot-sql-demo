@@ -44,10 +44,10 @@ public class EmployeRepository {
 
     public List<Map<String, Object>> fonctionsAgeMoyenSup45() {
         return jdbcTemplate.queryForList("SELECT Fonction, ROUND(AVG(" +
-                "                       (strftime('%Y', 'now') - strftime('%Y', DateNaissance))" +
-                "                       - (strftime('%m-%d', 'now') < strftime('%m-%d', DateNaissance)),1) AS AgeMoyen " +
+                "                       (str_to_date('%Y', 'now') - str_to_date('%Y', DateNaissance))" +
+                "                       - (str_to_date('%m-%d', 'now') < str_to_date('%m-%d', DateNaissance)),1)) AS AgeMoyen " +
                 "FROM Employe GROUP BY Fonction HAVING AgeMoyen > 45 " +
-                "ORDER BY AgeMoyen DESC)");
+                "ORDER BY AgeMoyen DESC");
     }
 
     public List<Map<String, Object>> employeMoinsDeCommandes() {
