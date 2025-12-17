@@ -1,6 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::section})}"
 th:href="@{/css/debug-layout.css}">
+<title th:text="${title}">Descriptions titres</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 2rem;
+    }
+    table {
+        border-collapse: collapse;
+        width: 60%;
+    }
+    th, td {
+        border: 1px solid #333;
+        padding: 8px 12px;
+    }
+    th {
+        background-color: #f0f0f0;
+    }
+</style>
 <section>
     <div class="container-fluid">
         <div class="d-flex justify-content-between align-items-center mb-3">

@@ -77,16 +77,18 @@ public class ClientRepository {
                 " FROM Client cli WHERE cli.CodeCli IN (" +
                 "SELECT c.CodeCli FROM Commande c WHERE c.NoCom IN (" +
                 "SELECT dc.NoCom FROM DetailCommande dc WHERE dc.RefProd = (" +
-                "SELECT p.RefProd FROM Produit p WHERE p.NomProd = 'Camenbert Pierrot')))");
+                "SELECT p.RefProd FROM Produit p WHERE p.NomProd = 'Camembert Pierrot')))");
     }
 
     // 3. Clients ayant commandé tous les produits du fournisseur Exotic Liquids
     public List<Map<String, Object>> getClientsWhoOrderedAllExoticProducts() {
-        return jdbcTemplate.queryForList("SELECT cli.* FROM Client cli WHERE NOT EXISTS (" +
-                "SELECT p.RefProd FROM Produit p WHERE p.NumFourn = (" +
-                "SELECT f.NumFourn FROM Fournisseur f WHERE f.NomFourn = 'Exotic Liquids')" +
-                "AND p.RefProd NOT IN (" +
-                "SELECT dc.RefProd FROM DetailCommande dc WHERE dc.NoCom IN (" +
+        return jdbcTemplate.queryForList("SELECT" +
+//                " cli.* FROM Client cli WHERE NOT EXISTS (" +
+//                "SELECT p.RefProd FROM Produit p WHERE p.NoFour = (" +
+//                "SELECT f.NoFour FROM Fournisseur f WHERE f.Societe = 'Exotic Liquids')" +
+//                "AND p.RefProd NOT IN (" +
+                " c.Societe FROM Client c WHERE NOT EXISTS (" +
+                "SELECT 1 FROM DetailCommande dc WHERE dc.NoCom IN (" +
                 "SELECT c.NoCom FROM Commande c WHERE c.CodeCli = cli.CodeCli)))");
     }
 }
