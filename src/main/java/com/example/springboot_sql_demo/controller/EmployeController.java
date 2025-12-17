@@ -38,41 +38,48 @@ public class EmployeController {
         return "employes/list_generic";
     }
 
+    @GetMapping("/employes/commandes-france")
+    public Object findEmployeesWithFrenchOrders(Model model) {
+        model.addAttribute("rows", employeRepository.findEmployeesWithFrenchOrders());
+        return "employes/list_generic";
+    }
+
+    @GetMapping("/employes/embauches-infos")
+    public Object findInfosEmbauche(Model model) {
+        model.addAttribute("rows", employeRepository.findInfosEmbauche());
+        return "employes/list_generic";
+    }
+
+    @GetMapping("/employes/commandes")
+    public Object commandesParEmploye(Model model) {
+        model.addAttribute("rows", employeRepository.countCommandesParEmploye());
+        return "employes/list_generic";
+    }
+
+    @GetMapping("/clients/pays-par-employe")
+    public Object paysClientsParEmploye(Model model) {
+        model.addAttribute("rows", employeRepository.countPaysClientsParEmploye());
+        return "employes/pays-clients-par-employe";
+    }
+
     @GetMapping("/employes-sans-commande")
-    public String getEmployeSansCommande(Model model) {
+    public Object getEmployeSansCommande(Model model) {
         model.addAttribute("title", "Employes n'ayant jamais effectué de commandes");
         model.addAttribute("rows", employeRepository.getEmployesSansCommande());
         return "employes/list_generic";
     }
 
-    @GetMapping("/employes/commandes-france")
-    public List<Map<String, Object>> findEmployeesWithFrenchOrders() {
-        return employeRepository.findEmployeesWithFrenchOrders();
-    }
-
-    @GetMapping("/employes/embauches-infos")
-    public List<Map<String, Object>> findInfosEmbauche() {
-        return employeRepository.findInfosEmbauche();
-    }
-
-    @GetMapping("/employes/commandes")
-    public List<Map<String, Object>> commandesParEmploye() {
-        return employeRepository.countCommandesParEmploye();
-    }
-
-    @GetMapping("/clients/pays-par-employe")
-    public List<Map<String, Object>> paysClientsParEmploye() {
-        return employeRepository.countPaysClientsParEmploye();
-    }
-
     // 1. Employés n'ayant jamais effectué une commande
     @GetMapping("/employes/sans-commandes")
-    public List<Map<String, Object>> getEmployeesWithoutOrders() {
-        return employeRepository.getEmployeesWithoutOrders();
+    public String getEmployeesWithoutOrders(Model model) {
+        model.addAttribute("title", "Employés n'ayant jamais effectué aucune commande");
+        model.addAttribute("rows", employeRepository.getEmployeesWithoutOrders());
+        return "employes/list_generic";
     }
 
     @GetMapping("/employes/tous-pays")
-    public List<Map<String, Object>> getEmployeesWithClientsInAllCountries() {
-        return employeRepository.getEmployeesWithClientsInAllCountries();
+    public String getEmployeesWithClientsInAllCountries(Model model) {
+        model.addAttribute("rows", employeRepository.getEmployeesWithClientsInAllCountries());
+        return "employes/list_generic";
     }
 }

@@ -32,7 +32,7 @@ public class StatistiquesRepository {
     }
 
     public List<Map<String, Object>> avgPrixParFournisseurEtCategorie() {
-        return jdbcTemplate.queryForList("SELECT NoFour AS NumeroFournisseur, CodeCateg AS CodeCategorie, ROUND(AVG(PrixUnit),2) AS PrixMoyen" +
+        return jdbcTemplate.queryForList("SELECT NoFour AS NumeroFournisseur, CodeCateg AS CodeCategorie, ROUND(AVG(PrixUnit),2) AS PrixMoyen " +
                 "FROM Produit GROUP BY NoFour, CodeCateg ORDER BY NoFour, CodeCateg");
     }
 //

@@ -23,7 +23,7 @@ public class DetailsCommandeRepository {
                 "FROM DetailCommande WHERE NoCom = 10251", noCommande);
     }
 
-    public List<Map<String, Object>> findTypeRemises() {
+    public List<Map<String, Object>> findTypeRemises(java.lang.Integer noCommande) {
         return jdbcTemplate.queryForList("SELECT NoCom, RefProd, Remise%," +
                                              "CASE WHEN Remise%=0 THEN 'aucune remise'" +
                                              "WHEN Remise% BETWEEN 0.01 AND 0.05 THEN 'petite remise'" +
