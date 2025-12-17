@@ -19,22 +19,30 @@ public class EmployeController {
 
     @GetMapping("/representants")
     public Object getRepresentants(Model model) {
-        return model.addAttribute("", employeRepository.countRepresentants());
+        model.addAttribute("title", "Employés et leur responsable");
+        model.addAttribute("rows", employeRepository.countRepresentants());
+        return "employes/list_generic";
     }
 
     @GetMapping("/employes-par-fonction")
-    public List<Map<String, Object>> getEmployesParFonction(Model model) {
-        return (List<Map<String, Object>>) model.addAttribute("", employeRepository.countEmployesParFonction());
+    public String getEmployesParFonction(Model model) {
+        model.addAttribute("title", "Nombre d'employés par fonction");
+        model.addAttribute("rows", employeRepository.countEmployesParFonction());
+        return "employes/list_generic";
     }
 
     @GetMapping("/employes-plus-petit-commande")
-    public List<Map<String, Object>> getEmployePlusPetitCommande(Model model) {
-        return (List<Map<String, Object>>) model.addAttribute("", employeRepository.employeMoinsDeCommandes());
+    public String getEmployePlusPetitCommande(Model model) {
+        model.addAttribute("title", "Employés à la commande la plus basse");
+        model.addAttribute("rows", employeRepository.employeMoinsDeCommandes());
+        return "employes/list_generic";
     }
 
     @GetMapping("/employes-sans-commande")
-    public List<Map<String, Object>> getEmployeSansCommande(Model model) {
-            return (List<Map<String, Object>>) model.addAttribute("",employeRepository.getEmployesSansCommande());
+    public String getEmployeSansCommande(Model model) {
+        model.addAttribute("title", "Employes n'ayant jamais effectué de commandes");
+        model.addAttribute("rows", employeRepository.getEmployesSansCommande());
+        return "employes/list_generic";
     }
 
     @GetMapping("/employes/commandes-france")
