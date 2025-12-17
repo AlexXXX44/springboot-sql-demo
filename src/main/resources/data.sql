@@ -76,3 +76,7 @@ VALUES
     (2002, 12, 3, 10.00, 0),
     (2003, 10, 1, 18.00, 0);
 
+INSERT INTO Categorie (CodeCateg,NomCateg, Description) VALUES
+                                                            (1, 'Boissons', 'fait partie des liquides'),
+                                                            (2, 'Condiments', 'ne fait pas partie des liquides'),
+                                                            (3, 'Produits laitiers', 'fait partie des liquides');

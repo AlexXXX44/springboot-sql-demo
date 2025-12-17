@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}">Descriptions catégories</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 2rem;
+        }
+        table {
+            border-collapse: collapse;
+            width: 60%;
+        }
+        th, td {
+            border: 1px solid #333;
+            padding: 8px 12px;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+
+<h1 th:text="${title}">Descriptions des catégories</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="row : ${rows}">
+        <td th:text="${row.Description}">Boissons</td>
+    </tr>
+    </tbody>
+</table>
+
+<p th:if="${rows == null || #lists.isEmpty(rows)}">
+    Aucune catégorie trouvée.
+</p>
+
+</body>
+</html>

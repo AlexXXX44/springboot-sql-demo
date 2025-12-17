@@ -9,9 +9,9 @@ import java.util.Map;
 @Repository
 public class CategorieRepository {
 
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
-    public void CategorieRepository(JdbcTemplate jdbcTemplate){
+    public CategorieRepository(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
     }
 
